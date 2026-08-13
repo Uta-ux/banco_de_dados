@@ -75,7 +75,7 @@ BEGIN
     -- 6.2 Posição fora do domínio
     BEGIN
         INSERT INTO jogadores (nome, id_selecao, id_clube, posicao)
-        VALUES ('Jogador Fantasma', 1, 1, 'Técnico');
+        VALUES ('Jogador Fantasma', 10, 1, 'Técnico');
         RAISE WARNING 'FALHOU: o CHECK de posição aceitou um valor inválido!';
     EXCEPTION WHEN check_violation THEN
         RAISE NOTICE 'OK - ck_jogadores_posicao bloqueou posição inválida.';
@@ -84,7 +84,7 @@ BEGIN
     -- 6.3 Gols negativos
     BEGIN
         INSERT INTO jogadores (nome, id_selecao, id_clube, posicao, gols_marcados)
-        VALUES ('Jogador Fantasma', 1, 1, 'Atacante', -3);
+        VALUES ('Jogador Fantasma', 10, 1, 'Atacante', -3);
         RAISE WARNING 'FALHOU: o CHECK de gols aceitou valor negativo!';
     EXCEPTION WHEN check_violation THEN
         RAISE NOTICE 'OK - ck_jogadores_gols bloqueou gols negativos.';
@@ -100,7 +100,7 @@ BEGIN
 
     -- 6.5 Exclusão de seleção que ainda possui jogadores
     BEGIN
-        DELETE FROM selecoes WHERE id_selecao = 1;
+        DELETE FROM selecoes WHERE id_selecao = 10;   -- Brasil, que tem jogadores
         RAISE WARNING 'FALHOU: apagou uma seleção que ainda tem jogadores!';
     EXCEPTION WHEN foreign_key_violation THEN
         RAISE NOTICE 'OK - ON DELETE RESTRICT protegeu a seleção com jogadores.';

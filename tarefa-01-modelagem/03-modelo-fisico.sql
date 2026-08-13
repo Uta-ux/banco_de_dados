@@ -67,7 +67,8 @@ CREATE TABLE jogadores (
     id_clube       INTEGER        NOT NULL,
     posicao        VARCHAR(20)    NOT NULL,
     gols_marcados  INTEGER        NOT NULL DEFAULT 0,
-    valor_mercado  NUMERIC(15,2)  NOT NULL DEFAULT 0,
+    -- Em milhões de euros, com 2 casas decimais: 150.00 = 150 milhões.
+    valor_mercado  NUMERIC(10,2)  NOT NULL DEFAULT 0,
 
     CONSTRAINT pk_jogadores PRIMARY KEY (id_jogador),
 
@@ -84,8 +85,9 @@ CREATE TABLE jogadores (
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
 
+    -- Domínio de posições conforme a nomenclatura das planilhas oficiais da FIFA.
     CONSTRAINT ck_jogadores_posicao CHECK (
-        posicao IN ('Goleiro', 'Zagueiro', 'Lateral', 'Volante', 'Meia', 'Atacante')
+        posicao IN ('Goleiro', 'Zagueiro', 'Lateral', 'Volante', 'Meio-Campo', 'Atacante')
     ),
     CONSTRAINT ck_jogadores_gols  CHECK (gols_marcados >= 0),
     CONSTRAINT ck_jogadores_valor CHECK (valor_mercado >= 0)
@@ -98,7 +100,7 @@ COMMENT ON COLUMN jogadores.id_selecao    IS 'FK para selecoes: seleção que o 
 COMMENT ON COLUMN jogadores.id_clube      IS 'FK para clubes: clube onde o atleta atua.';
 COMMENT ON COLUMN jogadores.posicao       IS 'Posição em campo. Domínio fechado.';
 COMMENT ON COLUMN jogadores.gols_marcados IS 'Gols marcados pelo atleta na competição.';
-COMMENT ON COLUMN jogadores.valor_mercado IS 'Valor de mercado estimado, em euros.';
+COMMENT ON COLUMN jogadores.valor_mercado IS 'Valor de mercado estimado, em MILHÕES de euros (unidade das planilhas da FIFA).';
 
 -- -----------------------------------------------------------------------------
 -- Índices

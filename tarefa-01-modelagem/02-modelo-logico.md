@@ -56,9 +56,9 @@ erDiagram
         varchar nome "nome do atleta"
         integer id_selecao FK "seleção que ele representa"
         integer id_clube FK "clube onde atua"
-        varchar posicao "Goleiro, Zagueiro, Lateral, Volante, Meia ou Atacante"
+        varchar posicao "Goleiro, Zagueiro, Lateral, Volante, Meio-Campo ou Atacante"
         integer gols_marcados "gols na competição"
-        decimal valor_mercado "valor estimado em euros"
+        decimal valor_mercado "valor estimado em milhões de euros"
     }
 ```
 
@@ -89,9 +89,9 @@ erDiagram
 | `nome` | texto (120) | NOT NULL | Nome do atleta. |
 | `id_selecao` | inteiro | **FK** → `Selecoes`, NOT NULL | Seleção que o jogador representa. |
 | `id_clube` | inteiro | **FK** → `Clubes`, NOT NULL | Clube onde o jogador atua. |
-| `posicao` | texto (20) | NOT NULL, domínio fechado | Posição em campo. |
+| `posicao` | texto (20) | NOT NULL, domínio fechado | Posição em campo, na nomenclatura das planilhas oficiais: Goleiro, Zagueiro, Lateral, Volante, Meio-Campo ou Atacante. |
 | `gols_marcados` | inteiro | NOT NULL, DEFAULT 0, `>= 0` | Gols marcados na competição. |
-| `valor_mercado` | decimal(15,2) | NOT NULL, DEFAULT 0, `>= 0` | Valor de mercado estimado, em euros. |
+| `valor_mercado` | decimal(10,2) | NOT NULL, DEFAULT 0, `>= 0` | Valor de mercado estimado, em **milhões de euros** — a unidade usada pela planilha da FIFA (`150.00` = 150 milhões). |
 
 ## Verificação de normalização
 
